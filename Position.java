@@ -1,21 +1,21 @@
 /**
  * Position
  */
-public class Position<p,i> {
-    p page;
-    i word;
+public class Position{
+    PageEntry page;
+    int word;
     
-    public Position(PageEntry p,int wordIndex)
+    public Position(PageEntry pa,int wordIndex)
     {
-        page=p;
-        i = wordIndex;
+        page=pa;
+        word = wordIndex;
     }
     public PageEntry getPageEntry()
     {
-        return p;
+        return page;
     }
     public int getWordIndex(){
-        return i;
+        return word;
     }
     
     
