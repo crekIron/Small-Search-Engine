@@ -1,9 +1,9 @@
 import java.util.*;
+import java.io.*; 
 
 /**
  * MyHashTable
  */
-@SuppressWarnings("unchecked")
 public class MyHashTable {
 
     HashMap<Integer, MyLinkedList<WordEntry>> hashs = new HashMap<Integer,MyLinkedList<WordEntry>>();
@@ -21,13 +21,24 @@ public class MyHashTable {
     {
         int j;
         j = this.getHashIndex(w.word);
-        for (int i = 0; i < hashs.get(j).size(); i++) 
-        {
-            if(hashs.get(j).get(i).word == w.word)
+        if(hashs.get(j)!=null){
+            for (int i = 0; i < hashs.get(j).size(); i++) 
             {
-                hashs.get(j).get(i).addPositions(w.getAllPositionsForThisWord());
-                return;
+                if(Objects.equals(hashs.get(j).get(i).word, w.word))
+                {
+                    hashs.get(j).get(i).addPositions(w.getAllPositionsForThisWord());
+                    return;
+                }
             }
+        }
+        else
+        {
+            MyLinkedList<WordEntry> newList = new MyLinkedList<WordEntry>();
+            newList.add(w);
+            hashs.put(j, newList);
+            // System.out.printf("%d ",j);
+            // System.out.println(hashs.get(j).get(0).word);
+            return;
         }
         // ## that particular word not found ##
         hashs.get(j).add(w);

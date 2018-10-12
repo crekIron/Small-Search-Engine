@@ -24,7 +24,7 @@ public class MySet<E>{
             head.add(element);
         }
         else{
-            System.out.println("ELement already exist");
+            // System.out.println("ELement already exist");
         }
     }
 

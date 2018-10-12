@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * InvertedPageIndex
  */
@@ -23,11 +25,12 @@ public class InvertedPageIndex {
         }   
         hashint = hashint%2069;
 
-        WordEntry word = new WordEntry("");
+        WordEntry word= null;
         MySet<PageEntry> listofp = new MySet<PageEntry>();
+
         for (int i = 0; i < tableOfWords.hashs.get(hashint).size(); i++) 
         {
-            if(tableOfWords.hashs.get(hashint).get(i).word == str)
+            if(Objects.equals( tableOfWords.hashs.get(hashint).get(i).word, str))
             {
                 word = tableOfWords.hashs.get(hashint).get(i);
                 break;
@@ -39,10 +42,6 @@ public class InvertedPageIndex {
             {
                 listofp.addElement(word.index.get(i).getPageEntry());    
             }
-        }
-        else
-        {
-            System.out.println("word does not exist");
         }
         return listofp;
     }
