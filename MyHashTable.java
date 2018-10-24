@@ -34,14 +34,18 @@ public class MyHashTable {
         else
         {
             MyLinkedList<WordEntry> newList = new MyLinkedList<WordEntry>();
-            newList.add(w);
+            WordEntry addword = new WordEntry(w.word);
+            addword.addPositions(w.getAllPositionsForThisWord());
+            newList.add(addword);
             hashs.put(j, newList);
             // System.out.printf("%d ",j);
             // System.out.println(hashs.get(j).get(0).word);
             return;
         }
         // ## that particular word not found ##
-        hashs.get(j).add(w);
+        WordEntry addword2 = new WordEntry(w.word);
+        addword2.addPositions(w.getAllPositionsForThisWord());
+        hashs.get(j).add(addword2);
         return;
     }
 }

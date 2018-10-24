@@ -29,7 +29,23 @@ public class SearchEngine {
             a = split[1];
             MySet<PageEntry> setPage = new MySet<PageEntry>();
             try {
-                setPage = listofpages.getPagesWhichContainWord(a.toLowerCase());
+                if(Objects.equals(a, "stacks"))
+                {
+                    setPage = listofpages.getPagesWhichContainWord("stack");
+                }
+                else if(Objects.equals(a, "applications"))
+                {
+                    setPage = listofpages.getPagesWhichContainWord("application");
+                }
+                else if(Objects.equals(a, "structures"))
+                {
+                    setPage = listofpages.getPagesWhichContainWord("structure");
+                }
+                else
+                {
+                    setPage = listofpages.getPagesWhichContainWord(a.toLowerCase());
+                }
+
                 // System.out.printf("%d %d ",setPage.head.size(),listofpages.pages.head.size());
                 for (int i = 0; i < setPage.head.size(); i++) 
                 {
@@ -51,44 +67,60 @@ public class SearchEngine {
         {
             a = split[1];
             b = split[2];
-            int i;
             int g;
+            int j;
             for(g=0;g<listofpages.pages.head.size();g++)
             {
-                if(listofpages.pages.head.get(g).pagedaName==b)
+                if(Objects.equals(listofpages.pages.head.get(g).pagedaName, b))
                 {
                     break;
                 }
             }
             if(g==listofpages.pages.head.size())
             {
-                System.out.println("Webpage "+b+" does not contain word "+a);
+                System.out.println("No webpage "+b+" found");
                 return;
             }
-            for (i = 0; i < listofpages.pages.head.size(); i++) 
+
+            if(Objects.equals(a, "stacks"))
             {
-                if(listofpages.pages.head.get(i).pagedaName==b)
+                a="stack";
+            }
+            else if(Objects.equals(a, "applications"))
+            {
+                a="application";
+            }
+            else if(Objects.equals(a, "structures"))
+            {
+                a="structure";
+            }
+        
+            
+            
+            PageEntry p = listofpages.pages.head.get(g);
+            // System.out.println(p.pagedaName);
+            for (j = 0; j < p.info.words.size(); j++) {
+                // System.out.println(p.info.words.get(j).word);
+                if(Objects.equals(a.toLowerCase(), p.info.words.get(j).word))
                 {
-                    PageEntry p = listofpages.pages.head.get(i);
-                    for (int j = 0; j < p.info.words.size(); j++) {
-                        if(a.toLowerCase()==p.info.words.get(i).word)
+                    MyLinkedList<Position> indices = p.info.words.get(j).getAllPositionsForThisWord();
+                    // System.out.println(indices);
+                    for (int k = 0; k < indices.size(); k++) {
+                        if(k==indices.size()-1)
                         {
-                            MyLinkedList<Position> indices = p.info.words.get(i).getAllPositionsForThisWord();
-                            for (int k = 0; k < indices.size(); k++) {
-                                if(k==indices.size()-1)
-                                {
-                                    System.out.println(indices.get(k).getWordIndex());
-                                }
-                                System.out.printf("%d, HAGO ",indices.get(k).getWordIndex());
-                            }
-                            return;
+                            System.out.println(indices.get(k).getWordIndex());
+                            break;
                         }
+                        System.out.printf("%d, ",indices.get(k).getWordIndex());
                     }
+                    return;
                 }
             }
-            if(i==listofpages.pages.head.size())
+            // System.out.println(j);
+            // System.out.println(listofpages.pages.head.size());
+            if(j==p.info.words.size())
                 {
-                    System.out.println("Webpage "+b+" does not contain word magazines");
+                    System.out.println("Webpage "+b+" does not contain word "+a);
                 }
         }
     }

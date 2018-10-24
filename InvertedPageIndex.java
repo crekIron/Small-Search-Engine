@@ -30,7 +30,7 @@ public class InvertedPageIndex {
 
         for (int i = 0; i < tableOfWords.hashs.get(hashint).size(); i++) 
         {
-            if(Objects.equals( tableOfWords.hashs.get(hashint).get(i).word, str))
+            if(Objects.equals(tableOfWords.hashs.get(hashint).get(i).word, str))
             {
                 word = tableOfWords.hashs.get(hashint).get(i);
                 break;
@@ -42,6 +42,10 @@ public class InvertedPageIndex {
             {
                 listofp.addElement(word.index.get(i).getPageEntry());    
             }
+        }
+        if(word==null)
+        {
+            return null;
         }
         return listofp;
     }
